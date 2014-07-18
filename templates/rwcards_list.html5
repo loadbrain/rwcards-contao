@@ -1,0 +1,108 @@
+<script type="text/javascript" src="<?php echo \Environment::get('base'); ?>system/modules/rwcards/assets/slideshow_rwcards/js/slideshow.js"></script>
+<?php if($this->view == "rwconecategory"){
+ header('location: ' . \Environment::get('base') . \Controller::generateFrontendUrl($objPage->row()) . '?view=rwconecategory&category_id=' . $this->categories[$i]['id'] . '&reWritetoSender=' . $this->reWritetoSender . '&reWritetoSenderId=' . $this->data[$i]['id'] . '&sessionId=' . $this->sessionId . '');
+ //$this->generateFrontendUrl(array(),  $this->alias . '/view/rwconecategory/category_id/' . $this->category_id  . '/reWritetoSender/' . $this->sessionId . '/reWritetoSenderId/' . $this->data[$i]['id'] . '/sessionId/' . $this->sessionId. '/' . $this->alias) . ''); 
+ exit;
+ }		
+	$style = '';
+	if ( count($this->data[0]) > 0) {
+	    for ($i=0; $i < count($this->data); $i++) {
+
+	    	$thumb_box_width = ($_SESSION['rwcards']['config']['rwcards_thumb_box_width'] != "" ) ? $_SESSION['rwcards']['config']['rwcards_thumb_box_width'] : '260';
+	    	$thumb_box_height = $_SESSION['rwcards']['config']['rwcards_thumb_box_height'] ? $_SESSION['rwcards']['config']['rwcards_thumb_box_height'] : '220';
+	        $style .="
+@media only screen and (min-width:450px){
+#myGallery_rwcards_".$i."{height: " . $thumb_box_height . "px !important; border-bottom: 1px solid #000000; padding: 0 0 10px;}
+#show_" . $i . "{float: left; position: absolute; display: block;}
+#description_" . $i . "{position: absolute; margin: 0px 0px 0px " . $thumb_box_width . "px; padding: 5px 10px; float: left;}
+#myGallery_rwcards_".$i." img.thumbnail{display: none;}
+#rwcardsTable" . $i. "{width:100%;border:0px;padding:0;margin:10px 0;}
+.slideshow{width: " . $thumb_box_width . "px !important;}
+.slideshow-captions{width: " . $thumb_box_width . "px !important;}
+}
+@media only screen and (min-width:90px) and (max-width:449px){
+#myGallery_rwcards_".$i."{height: auto !important; border-bottom: 1px solid #000000; padding: 0 0 10px; overflow:hidden;}
+#show_" . $i . "{float: left; position: absolute; display: block;}
+#description_" . $i . "{padding: 5px 10px; float: left;}
+#myGallery_rwcards_".$i." img.thumbnail{display: none;}
+#rwcardsTable" . $i. "{width:100%;border:0px;padding:0;margin:10px 0;}
+.slideshow{width: " . $thumb_box_width . "px !important;}
+.slideshow-captions{width: " . $thumb_box_width . "px !important;}
+}";
+	    }
+	  }
+echo "<style>$style</style>";
+	if ( count($this->data[0]) > 0) {
+	    for ($i=0; $i < count($this->data); $i++) {
+	?>
+	<script type="text/javascript">
+	//<![CDATA[
+	(function($) {	
+	  window.addEvent('domready', function(){
+	    var data = {
+<?php
+			// loop through cards in section
+			foreach ($this->data[$i] as $key => $val) {
+?>
+	      '<?php echo \Environment::get('base') . $val['path']; ?>': { caption: '<?php echo $val['autor']; ?>' },
+<?php
+}
+?>
+	    };
+	    var myGallery_rwcards_<?php echo $i; ?> = new Slideshow('show_<?php echo $i; ?>', data, { duration: 3000, captions: true, controller: false, height: <?php echo $thumb_box_height; ?>, width: <?php echo $thumb_box_width; ?>});
+	  });
+	})(document.id);
+	//]]>
+	</script>
+<div id="rwcardsTable<?php echo $i;?>">
+	<div id="rwcards_gallery">
+		<div id="myGallery_rwcards_<?php echo $i; ?>">
+
+	<?php
+				// loop through cards in section
+				foreach ($this->data[$i] as $key => $val) {
+				
+	?>
+			<div id="show_<?php echo $i; ?>" class="slideshow">
+				<!--<a href="<?php echo \Controller::generateFrontendUrl($objPage->row()) . '?view=rwconecategory&category_id=' . $this->categories[$i]['id'] . '&reWritetoSender=' . $this->reWritetoSender . '&reWritetoSenderId=' . $this->data[$i]['id'] . '&sessionId=' . $this->sessionId;?>"></a>-->
+				<a href="<?php echo \Controller::generateFrontendUrl($objPage->row()) . '?view=rwconecategory&category_id=' . $this->categories[$i]['id'] . '&reWritetoSender=' . $this->reWritetoSender . '&reWritetoSenderId=' . $this->data[$i]['id'] . '&sessionId=' . $this->sessionId;?>"></a>
+		<?php
+				}
+	?>
+			</div>
+		</div>
+		<div id="description_<?php echo $i; ?>">
+		<span style="font-weight: bold; text-decoration:underline;">
+			<a href="<?php echo \Controller::generateFrontendUrl($objPage->row()) . '?view=rwconecategory&category_id=' . $this->categories[$i]['id'] . '&reWritetoSender=' . $this->reWritetoSender . '&reWritetoSenderId=' . $this->data[$i]['id'] . '&sessionId=' . $this->sessionId;?>"><?php echo $this->categories[$i]['category_kategorien_name']; ?></a>
+		</span>
+		<br />
+		<br />
+
+		<?php echo nl2br( $this->categories[$i]['category_description']);  ?>
+
+		<br /><br /><br /><br />
+		<a href="<?php echo \Controller::generateFrontendUrl($objPage->row()) . '?view=rwconecategory&category_id=' . $this->categories[$i]['id'] . '&reWritetoSender=' . $this->reWritetoSender . '&reWritetoSenderId=' . $this->data[$i]['id'] . '&sessionId=' . $this->sessionId;?>"><?php echo $this->seeAllCards; ?></a>
+
+		</div>
+</div>
+</div>
+</div>
+<?php
+		}
+	}
+	else {
+?>
+<table id="rwcardsTable">
+<tr>
+	<td valign="top">
+		<span style="font-weight: bold; color:red; font-size:14px;">
+			<?php echo $this->noCategoriesPublished; ?>
+		</span>
+	</td>
+</tr>
+</table>
+<?php
+	}
+?>
+
+<?php echo $this->pagination; ?>
