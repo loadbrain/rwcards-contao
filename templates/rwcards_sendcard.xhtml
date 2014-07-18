@@ -1,0 +1,165 @@
+<?php
+
+// if we have stuff in the session then we're previewing. Otherwise, the end recipient is viewing.
+if ( !$this->data) {
+	echo $this->rwcards_sendcard_invalid_code;
+}
+else {
+   // var_dump($this->data);
+?>
+
+<div class="congratulations">
+	<h1><?php echo ($this->Session->get('picture') != "") ? $this->rwcards_sendcard_sucessfully_sent : $this->rwcards_sendcard_view_your_card . " " . htmlentities($this->data[0]["nameTo"], ENT_QUOTES, 'UTF-8' ); ?></h1>
+
+	<?php if ($this->Session->get('picture') != "") echo $this->rwcards_sendcard_congratulations; ?>
+	<br />
+	<?php echo ($this->reWritetoSender != "") ? $this->rwcards_sendcard_view_your_card_hint : ""; ?>
+	<br /><br />
+</div>
+<div class="rwcardsClr"></div>
+
+
+<p style="text-align:center;">
+	<span id="showFrontCard" class="rwcardsLink">
+		<?php echo $this->rwcards_sendcard_show_front_card; ?></span>&nbsp;&nbsp;<span id="showBackCard" class="rwcardsLink"><?php echo $this->rwcards_sendcard_show_back_card; ?>
+	</span>
+</p>
+
+
+<div id="rwcardsViewWrapper" style="height:auto;"">
+	<div id="frontCard"  style="display:block;">
+		<img src='<?php echo ($this->Session->get('picture') != "") ? $this->Session->get('picture') : $this->Environment->base .  $this->data[0]['picture']; ?>'
+			alt='<?php echo $this->Session->get('picture'); ?>'
+			hspace='2'
+			vspace='2'
+			border='0'
+			class="theCard">
+	</div>
+	<div id="backCard" style="display:none;">
+	<div class="rwcardsfull">
+		<div class="rwcardsLeftForm">
+			<div class="rw_date"><?php echo date("d.m.Y"); ?></div>
+			<p class="rw_from">
+				<span class="rw_label"><?php echo $this->is_enduser ? $this->rwcards_sendcard_from : $this->rwcards_sendcard_from; ?></span>
+				<br />
+				<span class="rw_from_name"><?php echo ( $this->Session->get('rwNameFrom') != "") ? $this->Session->get('rwNameFrom') : $this->data[0]['nameFrom']; ?></span>
+				<br />
+				<span class="rw_from_email"><?php echo ($this->Session->get('rwEmailFrom') != "") ? $this->Session->get('rwEmailFrom') : $this->data[0]['rwEmailFrom']; ?></span>
+			</p>
+			<p class="rw_message">
+				<span class="rw_label"><?php echo $this->rwcards_sendcard_message;?></span>
+				<br />
+				<span class="rw_text"><?php echo ($this->Session->get('rwMessage') != "") ? nl2br( $this->Session->get('rwMessage')) : nl2br($this->data[0]['message']); ?></span>
+			</p>
+
+		</div>
+		<div class="rwcardsRightForm">
+			<p class="rw_postmark"><img src='<?php echo $this->Environment->base; ?>system/modules/rwcards/html/images/postmark.gif' /><img src='<?php echo $this->Environment->base; ?>system/modules/rwcards/html/images/stamp.jpg' /></p>
+			<p class="rw_to">
+				<span class="rw_label"><?php echo $this->is_enduser ? $this->rwcards_sendcard_to : $this->rwcards_sendcard_name_to;?></span>
+			</p>
+			<?php
+			if ($this->viewCardOnly) {
+			?>
+				<div id="rwcardsReceiver">
+					<p class="rw_receiver">
+						<span class="rw_to_name"><?php var_dump( $this->data); ?></span>
+						<br />
+						<span class="rw_to_email"><?php echo htmlentities( $this->rwcards[0]->emailTo, ENT_QUOTES, 'UTF-8' ); ?></span>
+						<br />
+					</p>
+				</div>
+			<?php
+			}
+			else {
+			?>
+				<div id="rwcardsReceiver">
+				<?php
+                                if($this->is_enduser){
+                                   ?>
+                                    <p class="rw_receiver">
+					<span class="rw_to_name"><?php echo $this->data[0]['nameTo']; ?></span>
+					<br />
+					<span class="rw_to_email"><?php echo $this->data[0]['emailTo']; ?></span>
+					<br />
+                                    </p>
+                                <?php
+                                }
+				if ( count($this->Session->get('rwCardsFormEmailTo')) > 0 )
+				{
+				?>
+					<p class="rw_receiver">
+						<span class="rw_to_name"><?php echo $this->Session->get('rwcardsReceiver'); ?></span>
+						<br />
+						<span class="rw_to_email"><?php echo $this->Session->get('rwCardsFormEmailTo'); ?></span>
+						<br />
+					</p>
+				<?php
+					for ($i = 1; $i <= $this->Session->get('additionalReceivers'); $i++)
+					{
+					?>
+					<p class="rw_receiver">
+						<span class="rw_to_name"><?php echo $this->Session->get('rwcardsReceiver' . $i); ?></span>
+						<br />
+						<span class="rw_to_email"><?php echo  $this->Session->get('rwCardsFormEmailTo' . $i ); ?></span>
+						<br />
+					</p>
+				<?php
+					}
+				}
+				?>
+				</div>
+			<?php
+			}
+			if ($this->is_enduser) {
+			?>
+			<div id="rwcardsReWriteCard" class="rw_reply_now">
+				<div class="rw_reply_image"><img src='<?php echo $this->Environment->base; ?>system/modules/rwcards/html/images/rewritecard.jpg'  /></div>
+				<div class="rw_reply_text"><?php echo $this->rwcards_sendcard_reply; ?></div>
+			</div>
+			<?php
+			}
+			?>
+			</div>
+		<div class="rwcardsClr"></div>
+	</div>
+	</div>
+</div>
+<script type="text/javascript">//<![CDATA[
+window.addEvent('domready', function()
+{
+	$('frontCard').setStyle('display', 'inline');
+
+	// Click on ShowFrontCard
+	$('showFrontCard').addEvent('click', function()
+	{
+		$('backCard').setStyle('display', 'none');
+		$('frontCard').setStyle('display', 'inline');
+	});
+
+	// Click on ShowBackCard
+	$('showBackCard').addEvent('click', function()
+	{
+		$('frontCard').setStyle('display', 'none');
+		$('backCard').setStyle('display', 'inline');
+	});
+
+	// Click on rwcardsReWriteCard
+	if ($('rwcardsReWriteCard'))
+	{
+	$('rwcardsReWriteCard').addEvent('click', function()
+	{
+			document.location.href='<?php echo $this->generateFrontendUrl('',  $this->alias . '/view/reWritetoSender/reWritetoSender/' . $this->reWritetoSender . '/sessionId/' . $this->sessionId . '/reWritetoSenderId/' . $this->reWritetoSenderId . '/' . $this->alias); ?>'
+	});
+	}
+});
+//]]></script>
+
+<div class="rwcardsClr"></div>
+<?php
+} // valid data, or sending
+
+// Clear the session so if page is reloaded entry is not saved twice
+$_SESSION['rwcardsSession'] = null;
+$_SESSION['captcha_success'] = null;
+?>

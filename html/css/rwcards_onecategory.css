@@ -1,0 +1,7 @@
+#card-heading {font-weight:bold;	margin-bottom: 1em;}
+#card-list {	margin-bottom: 1.5em;text-align:center;}
+#category-box {	font-weight:bold; float:right;}
+img.img-thumb {margin:5px; -moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9); -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9); box-shadow: 0 1px 5px rgba(0,0,0,0.9);}
+.send-this-img {	float:left; display:inline; width:100%; margin:0 5px 5px 5px; padding-bottom:10px; text-align: center}
+#limit {	text-align:center;}
+#limit ul.pagination li {	float: none !important;display: inline;}
