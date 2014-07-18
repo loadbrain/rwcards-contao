@@ -1,0 +1,133 @@
+<h1><?php echo $this->rwcards_preview_card; //var_dump($this->Session->getData()); exit; ?></h1>
+
+
+<p style="text-align:center;">
+	<span id="showFrontCard" class="rwcardsLink"><?php echo $this->rwcards_preview_show_front_card; ?></span>
+	  
+	<span id="showBackCard" class="rwcardsLink"><?php echo $this->rwcards_preview_show_back_card; ?></span>
+</p>
+
+
+
+<div id="rwcardsViewWrapper" style="height:auto; text-align:center;">
+	<div id="frontCard" style="display:block;">
+		<img src='<?php echo $this->Session->get('picture'); ?>'
+			alt='<?php echo  $this->Session->get('picture'); ?>'
+			hspace='2'
+			vspace='2'
+			border='0'
+			class="theCard">
+	</div>
+	<div id="backCard" style="display:none;">
+		<div class="rwcardsfull">
+			<div class="rwcardsLeftForm">
+				<div class="rw_date"><?php echo date("d.m.Y"); ?></div>
+				<p class="rw_from">
+					<span class="rw_label"><?php echo $this->rwcards_preview_from; ?></span>
+					<br />
+					<span class="rw_from_name"><?php echo $this->Session->get('rwNameFrom'); ?></span>
+					<br />
+					<span class="rw_from_email"><?php echo $this->Session->get('rwEmailFrom'); ?></span>
+				</p>
+				<p class="rw_message">
+					<span class="rw_label"><?php echo $this->rwcards_preview_message;?></span>
+					<br />
+					<span class="rw_text"><?php echo nl2br( htmlentities(  $this->Session->get('rwMessage')) ); ?></span>
+				</p>
+			</div>
+			<div class="rwcardsRightForm">
+				<p class="rw_postmark"><img src='<?php echo $this->Environment->base; ?>system/modules/rwcards/assets/images/postmark.gif' /><img src='<?php echo $this->Environment->base; ?>system/modules/rwcards/assets/images/stamp.jpg' /></p>
+				<p class="rw_to">
+					<span class="rw_label"><?php echo $this->rwcards_preview_to;?></span>
+				</p>
+
+				<div id="rwcardsReceiver">
+				<?php
+				if ( count($this->Session->get('rwCardsFormEmailTo')) > 0 )
+				{
+				?>
+					<p class="rw_receiver">
+						<span class="rw_to_name"><?php echo $this->Session->get('rwcardsReceiver'); ?></span>
+						<br />
+						<span class="rw_to_email"><?php echo $this->Session->get('rwCardsFormEmailTo'); ?></span>
+						<br />
+					</p>
+				<?php
+					for ($i = 1; $i <= $this->Session->get('additionalReceivers'); $i++)
+					{
+					?>
+					<p class="rw_receiver">
+						<span class="rw_to_name"><?php echo $this->Session->get('rwcardsReceiver' . $i); ?></span>
+						<br />
+						<span class="rw_to_email"><?php echo  $this->Session->get('rwCardsFormEmailTo' . $i ); ?></span>
+						<br />
+					</p>
+				<?php
+					}
+				}
+				?>
+				</div>
+			</div>
+			<div class="rwcardsClr"></div>
+		</div>
+	</div>
+</div>
+
+<div class="rwcards_buttons_bottom" id="rwcards_buttons_bottom">
+<form method="post" onSubmit="javascript:return false;">
+	<input type="submit" name="submit" id="rwcardsGoBack" value="<?php echo $this->rwcards_preview_cards_back; ?>" class="rwcards_button" />
+	<input type="submit" name="submit" id="rwcardsSend" value="<?php echo $this->rwcards_preview_cards_send_card;?>" class="rwcards_button" />
+	<input type="hidden" name="sessionCode" id="sessionCode" value="<?php echo $this->sessionId; ?>" />
+</form>
+</div>
+
+<script type="text/javascript">//<![CDATA[
+(function($) {
+window.addEvent('domready', function()
+{
+    var myCardFx;
+    var myEffect = function(cardId){
+        return myCardFx = new Fx.Tween(''+cardId+'', {
+        duration:550,
+        property: 'opacity'
+    });
+
+    };
+
+    var setDisplayOfCard = function(myElement, styleProperty){
+        $(myElement).setStyle('display', ''+ styleProperty +'');
+    };
+    
+	$('frontCard').setStyle('display', 'inline');
+
+	// Click on ShowFrontCard
+	$('showFrontCard').addEvent('click', function()
+	{
+        myEffect('frontCard').start(0, 1);
+		setDisplayOfCard.delay(500, 'backCard',['backCard', 'none']);
+        myEffect('backCard').start(1, 0);
+        setDisplayOfCard.delay(500, 'frontCard',['frontCard', 'inline']);
+	});
+
+	// Click on ShowBackCard
+	$('showBackCard').addEvent('click', function()
+	{
+		myEffect('frontCard').start(1, 0);
+        setDisplayOfCard.delay(500, 'frontCard',['frontCard', 'none']);
+		setDisplayOfCard.delay(500, 'backCard',['backCard', 'inline']);
+		myEffect('backCard').start(0, 1);
+	});
+
+
+	$('rwcardsGoBack').addEvent('click', function() {
+		document.location.href='<?php echo \Controller::generateFrontendUrl($this->nextPage). '?view=rwcardsfilloutcard&id=' . $this->card_id .'&category_id=' . $this->category_id . '&reWritetoSender=' . $this->reWritetoSender . '&sessionId=' . @$this->sessionId; ?>'
+	});
+
+	$('rwcardsSend').addEvent('click', function() {
+		document.location.href='<?php echo \Controller::generateFrontendUrl($this->nextPage) . '?view=rwcardssendcard&id=' . $this->card_id; ?>'
+	});
+});
+})(document.id);
+//]]></script>
+
+<div class="rwcardsClr"></div>

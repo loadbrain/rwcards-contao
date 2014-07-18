@@ -1,0 +1,86 @@
+<?php if($this->view != "rwconecategory"){ ?>
+<div id="category-box">
+	<h3><?php echo $this->rwcards_one_category_listcards_category_chosen_category . ": " . $this->categories; ?></h3>
+</div>
+<?php
+}
+
+if ( count($this->data[0]) > 0)
+{
+?>
+<div id="card-heading">
+	<h1><?php echo $this->rwcards_one_category_listcards_click_on_card_to_preview; ?></h1>
+</div>
+
+<div id="card-list">
+
+<?php
+$k="";
+$styleClear = "width:" . (90 / $this->cardsPerLine) . "%;";	
+for ($i=0, $n=count( $this->data ); $i < $n; $i++){
+$imgDim = deserialize($this->data[$i]['size']);
+?>
+<div class="card" style="<?php echo $styleClear; ?>">
+	<a href="<?php echo \Environment::get('base') . $this->data[$i]['path'];?>"
+		data-lightbox="lightbox"
+		title="<?php echo strip_tags($this->data[$i]['description']); ?>"><img
+		src="<?php echo \Environment::get('base') .  $this->getImage($this->data[$i]['path'], $imgDim[0], $imgDim[1], 'box');?>"
+		alt="<?php echo strip_tags($this->data[$i]['description']);?>"
+		class="img-thumb" /></a>
+	<br />
+	<span class="send-this-img">
+                <?php
+                $cardId = ($this->rewriteCardId != "") ? $this->rewriteCardId : $this->data[$i]['id'];
+                ?>
+		<a href="<?php echo \Controller::generateFrontendUrl($this->nextPage) . '?view=rwcardsfilloutcard&id=' . $cardId .'&category_id=' . $this->category_id . '&reWritetoSender=' . $this->reWritetoSender . '&sessionId=' . @$this->sessionId;?>"><?php echo $this->rwcards_one_category_listcards_rwcards_one_category_send_this_image; ?></a>
+	</span>
+</div>
+<?php
+	#$styleClear = ($k % $this->cardsPerLine == 0) ? "clear:none;" : "clear:both;";	
+	$k++;
+}
+?>
+</tr>
+</table>
+</div>
+
+<div id="limit"><?php echo $this->pagination; ?></div>
+
+<div class="rwcardsClr"></div>
+<?php
+}
+else
+{
+	echo $this->noCategoriesPublished;
+}
+
+if($this->view != "rwconecategory"){
+?>
+
+<script type="text/javascript">//<![CDATA[
+(function($) {
+$('ctrl_category_id').addEvent('change', function()
+{
+	var chosenCategory = $('ctrl_category_id').get('value');
+
+	var all_cats = {
+	<?php $done = false;
+	foreach ( $this->category_ids as $key=>$categoryId ) {
+		if ( $done ) echo ",\n";
+		$done = true;
+//		echo "'$categoryId[value]': '" . str_replace('&', '&',
+//			JRoute::_( 'index.php?option=com_rwcard&view=rwcard&Itemid=' . JRequest::getCmd("Itemid")
+//			. '&category_id=' . $categoryId . '&reWritetoSender=' . @$this->reWritetoSender . '&sessionId=' . @$this->sessionId ) ) . "'";
+
+		echo "'$categoryId[value]': '" . \Controller::generateFrontendUrl($this->nextPage) .  '?view=rwconecategory&category_id=' . $categoryId[value] . '&reWritetoSender=' . $this->reWritetoSender . '&sessionId=' . @$this->sessionId . "'";
+	}
+	echo '};';
+	?>
+	document.location.href = all_cats[ chosenCategory ];
+
+});
+})(document.id);
+//]]></script>
+<?php
+}
+?>
