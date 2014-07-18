@@ -1,8 +1,0 @@
-#card-heading {	font-weight:bold;	margin-bottom: 1em;}
-#card-list {	margin-bottom: 1.5em;text-align:center;float: left;}
-.card{padding: 5px; clear:none;  float:left;}
-#category-box {float: right;font-size: 80%;padding: 10px 0;}
-img.img-thumb {-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9); -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9);	box-shadow: 0 1px 5px rgba(0,0,0,0.9);margin:5px;}
-.send-this-img {	float:left; display:inline; width:100%; font-size:0.9em; margin:0 5px 5px 5px; padding-bottom:10px; text-align: center}
-#limit {	text-align:center;}
-#limit ul.pagination li {float: none !important;display: inline;}
