@@ -34,7 +34,7 @@ if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 /**
  * Add palette
  */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['RWCards'] .= '{title_legend},name,headline,type;rwcards_view_categories;rwcards_per_attachement;rwcards_cards_per_row,rwcards_rows_per_page;rwcards_keep_cards;rwcards_thumb_box_width,rwcards_thumb_box_height;rwcards_thumbnail_width,rwcards_thumbnail_height';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['RWCards'] .= '{title_legend},name,headline,type;rwcards_view_categories;rwcards_per_attachement;rwcards_cards_per_row,rwcards_rows_per_page;rwcards_keep_cards;rwcards_thumb_box_width,rwcards_thumb_box_height;rwcards_thumbnail_width,rwcards_thumbnail_height;rwcards_email_text';
 
 /**
  * Add fields
@@ -115,6 +115,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_thumbnail_height'] = array
 	'default'			=> 120
 );
 
+$GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_email_text'] = array
+(
+    'label'				=> &$GLOBALS['TL_LANG']['tl_module']['rwcards_email_text'],
+    'exclude'           => true,
+    'filter'            => false,
+    'inputType'			=> 'textarea',
+    'eval'				=> array('mandatory'=>false, 'rows'=>15),
+);
 
 
 

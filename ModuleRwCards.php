@@ -144,6 +144,7 @@ class ModuleRwCards extends \Module {
             $objConfig->perPage = $this->perPage;
             $objTemplate = new FrontendTemplate("rwcards_filloutcard");
             $objConfig->template = $this->strTemplate;
+
             $this->FillOutCardRwCards->addToTemplate($this->Template, $objConfig, 'tl_page', $objPage->id, $objPage->alias);
         }
         /**
@@ -162,6 +163,7 @@ class ModuleRwCards extends \Module {
          */
         if (\Input::get('view') == "rwcardssendcard" or \Input::get('view') == "rwcardsReWriteCard") {
             $this->import('SendCardRwCards');
+            $this->SendCardRwCards->setModule($this);
             $objConfig = new stdClass();
             $objConfig->perPage = $this->perPage;
             $objTemplate = new FrontendTemplate("rwcards_sendcard");

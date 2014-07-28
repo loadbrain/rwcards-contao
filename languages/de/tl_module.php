@@ -25,13 +25,17 @@ $GLOBALS['TL_LANG']['tl_module']['rwcards_rows_per_page']['0'] = "Wieviel Reihen
 $GLOBALS['TL_LANG']['tl_module']['rwcards_rows_per_page']['1'] = "Wieviele Reihen soll auf einer Seite angezeigt werden?.";
 $GLOBALS['TL_LANG']['tl_module']['rwcards_keep_cards']['0'] = "Wieviel Tage sollen Karten aufgehoben werden?";
 $GLOBALS['TL_LANG']['tl_module']['rwcards_keep_cards']['1'] = "Wieviel Tage sollen Karten aufgehoben werden? 0 = nie löschen";
-$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_width']['0'] = "Wie breit sollen die thumbnails der Karten sein?";
-$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_width']['1'] = "Wie breit sollen die thumbnails der Karten sein?";
-$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_height']['0'] = "Wie hoch soll die thumbnails  der Karten sein?";
-$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_height']['1'] = "Wie hoch soll die thumbnails  der Karten sein?";
+$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_width']['0'] = "Wie breit sollen die Thumbnails der Karten sein?";
+$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_width']['1'] = "Wie breit sollen die Thumbnails der Karten sein?";
+$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_height']['0'] = "Wie hoch soll die Thumbnails  der Karten sein?";
+$GLOBALS['TL_LANG']['tl_module']['rwcards_thumbnail_height']['1'] = "Wie hoch soll die Thumbnails  der Karten sein?";
 $GLOBALS['TL_LANG']['tl_module']['rwcards_per_attachement']['0'] = "Bild der Karte als Attachement der Email schicken?";
 $GLOBALS['TL_LANG']['tl_module']['rwcards_per_attachement']['1'] = "Soll das Bild der E-Card als Attachement mit der E-Mail geschickt werden oder ein Link zur Seite um die Karte aufzurufen (empfohlen)";
 $GLOBALS['TL_LANG']['tl_module']['0'] = "Nein, URL zur Karte in der E-Mail schicken";
 $GLOBALS['TL_LANG']['tl_module']['1'] = "Ja, als Attachement verschicken";
+$GLOBALS['TL_LANG']['tl_module']['rwcards_thumb_box_width'] = array('Wie breit sollen die Thumbnails der Karten in der Vorschau sein?', 'Wie breit sollen die Thumbnails in der Vorschau der Karten sein?');
+$GLOBALS['TL_LANG']['tl_module']['rwcards_thumb_box_height'] = array('Wie hoch sollen die Thumbnails der Karten in der Vorschau sein?', 'Wie hoch sollen die Thumbnails der Karten in der Vorschau sein?');
+$GLOBALS['TL_LANG']['tl_module']['rwcards_email_text'] = array('Empfängermail-Text','Der Text welcher in der an den Empfänger versanden E-Mail enthalten ist. Sie können hier die Simple Tokens ##sender##,##receiver## und ##link## verwenden');
+ 
  
 ?>

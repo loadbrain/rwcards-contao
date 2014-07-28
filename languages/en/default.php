@@ -28,6 +28,11 @@
  * @filesource
  */
 
+/*
+ * Module Names
+ */
+$GLOBALS['TL_LANG']['MOD']['RWCards'] = array('E-Cards', 'Configure E-Cards.');
+$GLOBALS['TL_LANG']['MOD']['RWCardsSentCards'] = array('Sent E-Cards ', 'View sent E-Cards.');
 
 /**
  * ListCards

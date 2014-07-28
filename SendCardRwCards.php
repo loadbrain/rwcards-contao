@@ -40,6 +40,16 @@ die('You cannot access this file directly!');
  */
 class SendCardRwCards extends Frontend {
 
+    protected $module;
+
+    public function setModule($module){
+        $this->module = $module;
+    }
+
+    public function getModule(){
+        return $this->module;
+    }
+
 	/**
 	 * Add all cards of one category to a template
 	 * @param object
@@ -55,8 +65,6 @@ class SendCardRwCards extends Frontend {
 		$this->import("Session");
 		$this->sessionData = $this->Session->getData();
 
-
-
 		$this->firstReceiver = true;
 		$this->lastId = array();
 		$this->linkToRWCards = array();
@@ -67,12 +75,9 @@ class SendCardRwCards extends Frontend {
 		$this->viewCardOnly = (\Input::get('view') == 'rwcardsReWriteCard' ) ? true : false;
 		$this->additionalReceivers = $this->Session->get('additionalReceivers');
 
-
-
 		if ($objConfig->template == '') {
 			$objTemplate->template = 'rwcards_sendcard';
 		}
-
 
 		/**
 		 * set some vars
@@ -104,7 +109,7 @@ class SendCardRwCards extends Frontend {
 			if ( $this->sessionId != ""){ 
 				$resCats = $this->Database->prepare("select * from tl_rwcardsdata where id = '" . $this->card_id . "' and tl_rwcardsdata.sessionId = '" . $this->sessionId ."'");
 				$this->data = $resCats->execute()->fetchAllAssoc();
-				$reWritetoSenderId = $this->Database->prepare("select id from tl_rwcards where picture = '" . $this->data[0]['picture'] . "'")->execute()->row();
+                $reWritetoSenderId = $this->Database->prepare("select id from tl_rwcards where picture = '" . $this->data[0]['picture'] . "'")->execute()->row();
 				$objTemplate->reWritetoSenderId = $reWritetoSenderId['id'];
 				$objTemplate->data = $this->data;
 				$this->setCardStatusToRead();
@@ -178,15 +183,31 @@ class SendCardRwCards extends Frontend {
 				$objEmail->attachFile($this->Session->get('picture'));
 			} else {
 
-				$rwcardsReceiver = ($i > 0 ) ? trim($this->Session->get('rwcardsReceiver' . $i)) . "\n\n" : trim($this->Session->get('rwcardsReceiver')) . "\n\n";
+                $module = $this->getModule();
+                $text   = trim(html_entity_decode($module->rwcards_email_text));
 
-				$message[$i] = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] . " "
-				. $rwcardsReceiver
-				. $this->Session->get('rwNameFrom')
-				. " " . $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_part_1'] . "\n\n"
-				. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_part_2'] . "\n\n"
-				. $this->linkToRWCards[$i] . "\n\n"
-				. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_separator'] . "\n"
+                $sender   = trim($this->Session->get('rwNameFrom'));
+                $receiver = ($i > 0 ) ? trim($this->Session->get('rwcardsReceiver' . $i))  : trim($this->Session->get('rwcardsReceiver'));
+                $link     = trim($this->linkToRWCards[$i]);
+
+
+                $text = \String::parseSimpleTokens($text,array('sender'    =>  $sender,
+                                                               'receiver'  =>  $receiver,
+                                                                'link'     => $link));
+
+                if(strlen($text)==0){
+
+                    $text  = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] . " ";
+                    $text .= ($i > 0 ) ? trim($this->Session->get('rwcardsReceiver' . $i)) . "\n\n" : trim($this->Session->get('rwcardsReceiver'));
+                    $text .= " ".$this->Session->get('rwNameFrom');
+                    $text .= " " . $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_part_1'] . "\n\n";
+                    $text .= $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_part_2'] . "\n\n";
+                    $text .= $this->linkToRWCards[$i] . "\n";
+                }
+
+                $message[$i] = $text. "\n";
+
+                $message[$i] .= $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_separator'] . "\n"
 				. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_copyright'] . "\n\n";
 			}
 
@@ -194,10 +215,10 @@ class SendCardRwCards extends Frontend {
 			$objEmail->fromName = $this->Session->get('rwNameFrom');
 			$objEmail->subject = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_subject'] . $this->Session->get('rwNameFrom');
 
-			$message[$i] = strip_tags($message[$i]);
-			$message[$i] = $this->String->decodeEntities($message[$i]);
-			$message[$i] = str_replace(array('&', '<', '>'), array('&', '<', '>'), $message[$i]);
-			$objEmail->text = sprintf($message[$i]);
+            $message[$i] = strip_tags($message[$i]);
+            $message[$i] = $this->String->decodeEntities($message[$i]);
+       		$message[$i] = str_replace(array('&', '<', '>'), array('&', '<', '>'), $message[$i]);
+       		$objEmail->text = sprintf($message[$i]);
 
 			// Send for additional reveivers
 			for ($a = 1; $a <= $this->additionalReceivers; $a++) {

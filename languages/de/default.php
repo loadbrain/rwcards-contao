@@ -15,6 +15,8 @@
  * permanent text corrections which are update-safe. 
  */
  
+$GLOBALS['TL_LANG']['MOD']['RWCards'] = array('E-Cards', 'E-Cards konfigurieren.');
+$GLOBALS['TL_LANG']['MOD']['RWCardsSentCards'] = array('Versandte E-Cards', 'Versandte E-Cards verwalten.');
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_listcards_see_all_cards'] = "Zeige alle Karten dieser Kategorie";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_listcards_no_category_published_or_created'] = "Noch keine Kategorien erzeugt oder veröffentlicht!";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_one_category_listcards'] = "Auf eine Karte zur Vollansicht klicken";
@@ -41,15 +43,15 @@ $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_invalid_code'] = "Falscher C
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_sucessfully_sent'] = "Ihre E-Card wurde erfolgreich verschickt";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_view_your_card'] = "Persönliche E-Card für";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_congratulations'] = "Herzlichen Glückwunsch!";
-$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_view_your_card_hint'] = "Klicken Sie auf \"Zeige hintere Ansicht\" um zu antworten!";
+$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_view_your_card_hint'] = "Klicken Sie auf \"Rückseite\" um zu antworten!";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_congatulations_hint'] = "Sie werden eine Bestätigungs E-Mail bekommen, sobald der Empfänger die Karte gelesen hat.";
-$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_show_front_card'] = "Zeige vordere Ansicht";
-$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_show_back_card'] = "Zeige hintere Ansicht";
+$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_show_front_card'] = "Vorderseite";
+$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_show_back_card'] = "Rückseite";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_from'] = "Von:";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_name_from'] = "Name";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_message'] = "Nachricht";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_to'] = "An:";
-$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_name_to'] = "Name des Empfämgers";
+$GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_name_to'] = "Name des Empfängers";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_reply'] = "jetzt antworten";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_subject'] = "Sie haben eine ECard erhalten! Absender: ";
 $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] = "Hallo";

@@ -46,6 +46,7 @@ CREATE TABLE `tl_module` (
   `rwcards_view_categories` char(1) NOT NULL default '0',
   `rwcards_thumbnail_width` int(10) unsigned NOT NULL default '80',
   `rwcards_thumbnail_height` int(10) unsigned NOT NULL default '80',
+  `rwcards_email_text` TEXT NOT NULL default ''
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -76,7 +77,7 @@ CREATE TABLE `tl_rwcardsdata` (
   `nameFrom` varchar(50) NOT NULL default '',
   `emailTo` varchar(50) NOT NULL default '',
   `emailFrom` varchar(50) NOT NULL default '',
-  `picture` varchar(50) NOT NULL default '',
+  `picture` varchar(400) NOT NULL default '',
   `sessionId` varchar(50) NOT NULL default '',
   `message` text NOT NULL,
   `writtenOn` date NOT NULL default '1999-01-01',

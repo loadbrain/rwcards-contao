@@ -28,9 +28,9 @@ $GLOBALS['TL_LANG']['tl_rwcards']['picture']['1'] = "Wählen Sie ein Bild aus de
 $GLOBALS['TL_LANG']['tl_rwcards']['description']['0'] = "Beschreibung";
 $GLOBALS['TL_LANG']['tl_rwcards']['description']['1'] = "Hier können Sie eine Beschreibung für Ihre Karte eingeben";
 $GLOBALS['TL_LANG']['tl_rwcards']['description_legend'] = "Beschreibung";
-$GLOBALS['TL_LANG']['tl_rwcards']['published']['0'] = "Karte verföffentlichen";
+$GLOBALS['TL_LANG']['tl_rwcards']['published']['0'] = "Karte veröffentlichen";
 $GLOBALS['TL_LANG']['tl_rwcards']['published']['1'] = "Nur veröffentlichte Karten werden angezeigt!";
-$GLOBALS['TL_LANG']['tl_rwcards']['published_legend'] = "Karte verföffentlichen";
+$GLOBALS['TL_LANG']['tl_rwcards']['published_legend'] = "Karte veröffentlichen";
 $GLOBALS['TL_LANG']['tl_rwcards']['size']['0'] = "Bildgröße";
 $GLOBALS['TL_LANG']['tl_rwcards']['size']['1'] = "Geben Sie die Bildgröße für die Thumbnailansicht ein";
  

@@ -21,7 +21,10 @@ for ($i=0, $n=count( $this->data ); $i < $n; $i++){
 $imgDim = deserialize($this->data[$i]['size']);
 ?>
 <div class="card" style="<?php echo $styleClear; ?>">
-	<a href="<?php echo \Environment::get('base') . $this->data[$i]['path'];?>"
+	<?php
+	       $cardId = ($this->rewriteCardId != "") ? $this->rewriteCardId : $this->data[$i]['id'];
+	?>
+	<a  href="<?php echo \Controller::generateFrontendUrl($this->nextPage) . '?view=rwcardsfilloutcard&id=' . $cardId .'&category_id=' . $this->category_id . '&reWritetoSender=' . $this->reWritetoSender . '&sessionId=' . @$this->sessionId;?>"
 		data-lightbox="lightbox"
 		title="<?php echo strip_tags($this->data[$i]['description']); ?>"><img
 		src="<?php echo \Environment::get('base') .  $this->getImage($this->data[$i]['path'], $imgDim[0], $imgDim[1], 'box');?>"

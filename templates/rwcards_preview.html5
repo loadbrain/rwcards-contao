@@ -32,7 +32,7 @@
 				<p class="rw_message">
 					<span class="rw_label"><?php echo $this->rwcards_preview_message;?></span>
 					<br />
-					<span class="rw_text"><?php echo nl2br( htmlentities(  $this->Session->get('rwMessage')) ); ?></span>
+					<span class="rw_text"><?php echo nl2br(   $this->Session->get('rwMessage') ); ?></span>
 				</p>
 			</div>
 			<div class="rwcardsRightForm">
