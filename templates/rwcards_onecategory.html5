@@ -24,7 +24,7 @@ $imgDim = deserialize($this->data[$i]['size']);
 	<?php
 	       $cardId = ($this->rewriteCardId != "") ? $this->rewriteCardId : $this->data[$i]['id'];
 	?>
-	<a  href="<?php echo \Controller::generateFrontendUrl($this->nextPage) . '?view=rwcardsfilloutcard&id=' . $cardId .'&category_id=' . $this->category_id . '&reWritetoSender=' . $this->reWritetoSender . '&sessionId=' . @$this->sessionId;?>"
+		<a  href="<?php echo \Environment::get('base') . $this->data[$i]['path'];?>"
 		data-lightbox="lightbox"
 		title="<?php echo strip_tags($this->data[$i]['description']); ?>"><img
 		src="<?php echo \Environment::get('base') .  $this->getImage($this->data[$i]['path'], $imgDim[0], $imgDim[1], 'box');?>"
