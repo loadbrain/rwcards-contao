@@ -180,7 +180,8 @@ class SendCardRwCards extends Frontend {
 				. nl2br($this->Session->get('rwMessage'))
 				. "\n\n" . $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_separator'] . "\n\n"
 				. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_copyright'];
-				$objEmail->attachFile($this->Session->get('picture'));
+
+                $objEmail->attachFile($this->Session->get('picture'));
 			} else {
 
                 $module = $this->getModule();
@@ -247,8 +248,8 @@ class SendCardRwCards extends Frontend {
 			$objEmail = new Email();
 			$objEmail->subject =  $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_subject'];
 			$message = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] . " "
-			. $this->data[0]['nameTo'] . ",\n\n"
-			. $this->data[0]['nameFrom'] . " <" . $this->data[0]['emailFrom'] . "> "
+			. $this->data[0]['nameFrom'] . ",\n\n"
+			. $this->data[0]['nameTo'] . " <" . $this->data[0]['emailTo'] . "> "
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_1'] . " "
 			. date("d.m.Y") . " "
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_2'] . "\n\n"
@@ -256,6 +257,7 @@ class SendCardRwCards extends Frontend {
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_separator'] . "\n"
 
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_copyright'] . "\n\n";
+            ;
 
 			$objEmail->text = sprintf($message);
 			$objEmail->from = $this->data[0]['emailTo'] ;
