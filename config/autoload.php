@@ -23,6 +23,8 @@ ClassLoader::addClasses(array
 	'OneCategoryRwCards' => 'system/modules/rwcards/OneCategoryRwCards.php',
 	'PreviewCardRwCards' => 'system/modules/rwcards/PreviewCardRwCards.php',
 	'SendCardRwCards'    => 'system/modules/rwcards/SendCardRwCards.php',
+	// Models
+	'RwcardsModel'		=> 'system/modules/rwcards/models/RwcardsModel.php',
 ));
 
 
