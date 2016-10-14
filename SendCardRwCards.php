@@ -1,7 +1,5 @@
 <?php
-
-if (!defined('TL_ROOT'))
-die('You cannot access this file directly!');
+if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * Contao Open Source CMS
@@ -38,15 +36,17 @@ die('You cannot access this file directly!');
  * @author     Ralf Weber <http://www.loadbrain.de>
  * @package    Controller
  */
-class SendCardRwCards extends Frontend {
-
+class SendCardRwCards extends Frontend
+{
     protected $module;
 
-    public function setModule($module){
+    public function setModule($module)
+    {
         $this->module = $module;
     }
 
-    public function getModule(){
+    public function getModule()
+    {
         return $this->module;
     }
 
@@ -57,8 +57,8 @@ class SendCardRwCards extends Frontend {
 	 * @param string
 	 * @param integer
 	 */
-	public function addToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias) {
-		$objPage = new stdClass();
+	public function addToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias)
+    {
 		$objPage = $this->Database->prepare('SELECT id, alias FROM tl_page WHERE id=?')->execute($intParent);
 		$this->nextPage = $objPage->fetchAssoc();
 		
@@ -75,7 +75,8 @@ class SendCardRwCards extends Frontend {
 		$this->viewCardOnly = (\Input::get('view') == 'rwcardsReWriteCard' ) ? true : false;
 		$this->additionalReceivers = $this->Session->get('additionalReceivers');
 
-		if ($objConfig->template == '') {
+		if ($objConfig->template == '')
+		{
 			$objTemplate->template = 'rwcards_sendcard';
 		}
 
@@ -105,9 +106,11 @@ class SendCardRwCards extends Frontend {
 		$objTemplate->nextPage = $this->nextPage;
 		$objTemplate->objPage = clone $objPage;
 
-		if (\Input::get('view') == "rwcardsReWriteCard") {
+		if (\Input::get('view') == "rwcardsReWriteCard")
+		{
 			// New Card or someone answers
-			if ( $this->sessionId != ""){ 
+			if ( $this->sessionId != "")
+			{
 				$resCats = $this->Database->prepare("select * from tl_rwcardsdata where id = '" . $this->card_id . "' and tl_rwcardsdata.sessionId = '" . $this->sessionId ."'");
 				$this->data = $resCats->execute()->fetchAllAssoc();
                 $reWritetoSenderId = $this->Database->prepare("select id from tl_rwcards where picture = '" . $this->data[0]['picture'] . "'")->execute()->row();
@@ -115,10 +118,12 @@ class SendCardRwCards extends Frontend {
 				$objTemplate->data = $this->data;
 				$this->setCardStatusToRead();
 			}
-		} else {
+		}
+		else
+		{
 			//Send Card -> view: rwcardssendcard
-
-			if (count($this->Session->getData()) > 0) {		
+			if (count($this->Session->getData()) > 0)
+			{
 				$objRes = $this->Database->prepare("INSERT INTO tl_rwcardsdata SET picture= '" . $this->Session->get('picture')
 				. "', nameTo = '" . $this->Session->get('rwcardsReceiver')
 				. "', nameFrom = '" . $this->Session->get('rwNameFrom')
@@ -129,12 +134,12 @@ class SendCardRwCards extends Frontend {
 				. "' , writtenOn = '" . date("Y-m-d")
 				. "' , cardSent = '0'")->execute();
 				// Get the ID generated from the previous INSERT operation
-	
-				//$this->lastId[0] = $objRes->insertId;
+
 				array_push($this->lastId, $objRes->insertId);
 
 				// All receivers are stored in tbe database
-				for ($i = 1; $i <= $this->additionalReceivers; $i++) {
+				for ($i = 1; $i <= $this->additionalReceivers; $i++)
+				{
 					$this->Database->prepare("INSERT INTO tl_rwcardsdata SET picture= '" . $this->Session->get('picture')
 					. "', nameTo = '" . $this->Session->get('rwcardsReceiver' . $i)
 					. "', nameFrom = '" . $this->Session->get('rwNameFrom')
@@ -145,12 +150,8 @@ class SendCardRwCards extends Frontend {
 					. "' , writtenOn = '" . date("Y-m-d")
 					. "' , cardSent = '0'")->execute();
 
-
-
 					// Get the ID generated from the previous INSERT operation
 					$this->lastId[$i] = $objRes->insertId;
-
-					//$this->sendEcardPerMail($objTemplate);
 				}
 				$this->sendEcardPerMail($objTemplate);
 			}
@@ -161,18 +162,20 @@ class SendCardRwCards extends Frontend {
 	/**
 	 * Send an email to the receiver(s)
 	 */
-	public function sendEcardPerMail($objTemplate) {
-	global $objPage;
+	public function sendEcardPerMail($objTemplate)
+    {
+	    global $objPage;
 		$this->import("String");
 		$objEmail = new \Email();
 
-		for ($i = 0; $i < count($this->lastId); $i++) {
-
+		for ($i = 0; $i < count($this->lastId); $i++)
+		{
 			$this->linkToRWCards[$i] = \Environment::get('base') . \Controller::generateFrontendUrl($objPage->row()). '?view=rwcardsReWriteCard&sessionId=' . $_SESSION['rwcards']['rwcards_session'] . '&id=' . $this->lastId[$i] . '&read=1&sendmail=1';
 			$this->linkToViewOnly[$i] = \Environment::get('base') . \Controller::generateFrontendUrl($objPage->row()) . '?view=rwcardsReWriteCard&sessionId=' . $_SESSION['rwcards']['rwcards_session'] . '&id=' . $this->lastId[$i] . '&sendmail=0';
 
 			// send card as attachement
-			if ($_SESSION['rwcards']['config']['rwcards_per_attachement']) {
+			if ($_SESSION['rwcards']['config']['rwcards_per_attachement'])
+			{
 				$message[$i] = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] . " "
 				. $this->Session->get('rwcardsReceiver' . $i) . ",\n\n"
 				. $this->Session->get('rwNameFrom') . " " . $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_attachement_1'] . "\n"
@@ -182,8 +185,8 @@ class SendCardRwCards extends Frontend {
 				. "\n\n" . $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_separator'] . "\n\n"
 				. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_copyright'];
 				$objEmail->attachFile($this->Session->get('picture'));
-			} else {
-
+			}
+			else {
                 $module = $this->getModule();
                 $text   = trim(html_entity_decode($module->rwcards_email_text));
 
@@ -191,13 +194,13 @@ class SendCardRwCards extends Frontend {
                 $receiver = ($i > 0 ) ? trim($this->Session->get('rwcardsReceiver' . $i))  : trim($this->Session->get('rwcardsReceiver'));
                 $link     = trim($this->linkToRWCards[$i]);
 
-
                 $text = \String::parseSimpleTokens($text,array('sender'    =>  $sender,
                                                                'receiver'  =>  $receiver,
                                                                 'link'     => $link));
 
-                if(strlen($text)==0){
-
+                if(strlen($text)==0)
+                {
+                    // If email text is not set in backend create deafult text here
                     $text  = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] . " ";
                     $text .= ($i > 0 ) ? trim($this->Session->get('rwcardsReceiver' . $i)) . "\n\n" : trim($this->Session->get('rwcardsReceiver'));
                     $text .= ",\n\n".$this->Session->get('rwNameFrom');
@@ -222,14 +225,17 @@ class SendCardRwCards extends Frontend {
        		$objEmail->text = sprintf($message[$i]);
 
 			// Send for additional reveivers
-			for ($a = 1; $a <= $this->additionalReceivers; $a++) {
+			for ($a = 1; $a <= $this->additionalReceivers; $a++)
+			{
 				$objEmail->sendTo($this->Session->get('rwCardsFormEmailTo' . $a)); //'ralf@localhost'
 				$res = $this->Database->prepare("update tl_rwcardsdata set cardSent = '1' WHERE id = '" . $this->lastId[$a] . "'")->execute();
-				if ($this->additionalReceivers == $a) {
+				if ($this->additionalReceivers == $a)
+				{
 					$this->additionalReceivers = null;
 				}
 			}
 		}
+
         // Send to first receiver
 		$objEmail->sendTo($this->Session->get('rwCardsFormEmailTo')); //'ralf@localhost';
         $res = $this->Database->prepare("update tl_rwcardsdata set cardSent = '1' WHERE id = '" . $this->lastId[0] . "'")->execute();
@@ -240,10 +246,11 @@ class SendCardRwCards extends Frontend {
 	/**
 	 * Set the status of the card to read and send an email to the receiver that the card was read
 	 */
-	public function setCardStatusToRead() {
-		if ( $this->data[0]['cardRead'] == '0'){
+	public function setCardStatusToRead()
+    {
+		if ( $this->data[0]['cardRead'] == '0')
+		{
 			$res = $this->Database->prepare("update tl_rwcardsdata set cardRead = '1', readOn = '" . date("Y-m-d") . "' WHERE id = '" . \Input::get('id') . "' and sessionId = '" . $this->sessionId . "'")->execute();
-			//$this->data = $res->execute()->fetchAllAssoc();
 
 			$objEmail = new Email();
 			$objEmail->subject =  $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_subject'];
@@ -255,20 +262,12 @@ class SendCardRwCards extends Frontend {
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_2'] . "\n\n"
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_3'] . "\n\n"
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_separator'] . "\n"
-
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_msg_copyright'] . "\n\n";
 
 			$objEmail->text = sprintf($message);
 			$objEmail->from = $this->data[0]['emailTo'] ;
 			$objEmail->fromName = $this->data[0]['nameTo'];
 			$objEmail->sendTo($this->data[0]['emailFrom']);
-			// update table so email is only sent once
-			$query = "update #__rwcardsdata set cardRead = '1', readOn = '" . date("Y-m-d")
-			. "' where sessionId = '" . $sessionId
-			. "' and id = '" . $id . "'";
 		}
 	}
-
 }
-
-?>

@@ -1,7 +1,5 @@
 <?php
-
-if (!defined('TL_ROOT'))
-    die('You cannot access this file directly!');
+if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * Contao Open Source CMS
@@ -34,21 +32,27 @@ class ModuleRwCards extends \Module {
 
     protected $strTemplate = '';
 
-    public function _getTemplate() {
+    public function _getTemplate()
+    {
 		//print_r(\Input::get('view')); 
-        if (\Input::get('view') == "rwconecategory") {
+        if (\Input::get('view') == "rwconecategory")
+        {
             $this->strTemplate = "rwcards_onecategory";
         }
-        if ($this->Input->get('view') == "rwcardsfilloutcard") {
+        if ($this->Input->get('view') == "rwcardsfilloutcard")
+        {
             $this->strTemplate = "rwcards_filloutcard";
         }
-        if ($this->Input->get('view') == "rwcardspreview") {
+        if ($this->Input->get('view') == "rwcardspreview")
+        {
             $this->strTemplate = "rwcards_preview";
         }
-        if ($this->Input->get('view') == "rwcardssendcard" or $this->Input->get('view') == "rwcardsReWriteCard") {
+        if ($this->Input->get('view') == "rwcardssendcard" or $this->Input->get('view') == "rwcardsReWriteCard")
+        {
             $this->strTemplate = "rwcards_sendcard";
         }
-        if ($this->Input->get('view') == "" or $this->Input->get('view') == "reWritetoSender") {
+        if ($this->Input->get('view') == "" or $this->Input->get('view') == "reWritetoSender")
+        {
             $this->strTemplate = "rwcards_list";
 			$this->Template = new \FrontendTemplate($this->strTemplate);
         }
@@ -58,10 +62,10 @@ class ModuleRwCards extends \Module {
      * Display a wildcard in the back end
      * @return string
      */
-    public function generate() {
+    public function generate()
+    {
 		if (TL_MODE == 'BE')
 		{
-
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
 			$objTemplate->wildcard = '### RWCARDS ###';
@@ -77,21 +81,21 @@ class ModuleRwCards extends \Module {
         return parent::generate();
     }
 
-    protected function compile() {
-
+    protected function compile()
+    {
         global $objPage;
-        //var_dump($this->Input->get('view')); exit;
-		//var_dump(\Input::get('view')); exit;
         /**
          * Global Session Array for config values
          */
         $this->_getTemplate();
 
-        if(\Input::get('view') == ""){
+        if(\Input::get('view') == "")
+        {
             session_destroy();
         }
 		
-        if ($_SESSION['rwcards']['config'] == "") {
+        if ($_SESSION['rwcards']['config'] == "")
+        {
             $_SESSION['rwcards']['rwcards_session'] = session_id();
             $res = $this->Database->execute("select rwcards_view_categories, rwcards_cards_per_row, rwcards_rows_per_page, rwcards_keep_cards, rwcards_thumb_box_width, rwcards_thumb_box_height, rwcards_per_attachement,rwcards_thumbnail_width, rwcards_thumbnail_height from tl_module where type = 'RWCards'");
             $data = $res->fetchAssoc();
@@ -106,14 +110,14 @@ class ModuleRwCards extends \Module {
             $_SESSION['rwcards']['config']['rwcards_thumbnail_height'] = $data['rwcards_thumbnail_height'];
         }
 
-
         /**
          * List RwCards
          */
 		 
 		// all categories or directly all cards (only one cat exisists)
 		$this->view = ($this->rwcards_view_categories == 0 ) ? "" : "rwconecategory";
-        if ( (\Input::get('view') == "" and $this->view == "") or \Input::get('view') == "reWritetoSender" ) {
+        if ( (\Input::get('view') == "" and $this->view == "") or \Input::get('view') == "reWritetoSender" )
+        {
             $this->import('ListRwCards');
             $objConfig = new stdClass();
             $objConfig->perPage = $this->perPage;
@@ -126,15 +130,16 @@ class ModuleRwCards extends \Module {
         /**
          * Show Cards of one category RwCards
          */
-        if (\Input::get('view') == "rwconecategory" or $this->view == "rwconecategory") {
+        if (\Input::get('view') == "rwconecategory" or $this->view == "rwconecategory")
+        {
             $this->import('OneCategoryRwCards');
             $objConfig = new stdClass();
             $objConfig->perPage = $this->perPage;
 			$objConfig->view = $this->view;
-            $objTemplate = new \FrontendTemplate("rwcards_onecategory");
             $objConfig->template = $this->strTemplate;
             $this->OneCategoryRwCards->addToTemplate($this->Template, $objConfig, 'tl_page', $objPage->id, $objPage->alias);
         }
+
         /**
          * Fill out Cards of one category RwCards
          */
@@ -142,11 +147,11 @@ class ModuleRwCards extends \Module {
             $this->import('FillOutCardRwCards');
             $objConfig = new stdClass();
             $objConfig->perPage = $this->perPage;
-            $objTemplate = new FrontendTemplate("rwcards_filloutcard");
             $objConfig->template = $this->strTemplate;
 
             $this->FillOutCardRwCards->addToTemplate($this->Template, $objConfig, 'tl_page', $objPage->id, $objPage->alias);
         }
+
         /**
          * Preview Cards of one category RwCards
          */
@@ -154,10 +159,10 @@ class ModuleRwCards extends \Module {
             $this->import('PreviewCardRwCards');
             $objConfig = new stdClass();
             $objConfig->perPage = $this->perPage;
-            $objTemplate = new FrontendTemplate("rwcards_preview");
             $objConfig->template = $this->strTemplate;
             $this->PreviewCardRwCards->addToTemplate($this->Template, $objConfig, 'tl_page', $objPage->id, $objPage->alias);
         }
+
         /**
          * Send Card of one category RwCards
          */
@@ -166,12 +171,8 @@ class ModuleRwCards extends \Module {
             $this->SendCardRwCards->setModule($this);
             $objConfig = new stdClass();
             $objConfig->perPage = $this->perPage;
-            $objTemplate = new FrontendTemplate("rwcards_sendcard");
             $objConfig->template = $this->strTemplate;
             $this->SendCardRwCards->addToTemplate($this->Template, $objConfig, 'tl_page', $objPage->id, $objPage->alias);
         }
     }
-
 }
-
-?>

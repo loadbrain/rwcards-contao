@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Contao Open Source CMS
  * 
@@ -9,7 +8,6 @@
  * @link    http://contao.org
  * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
  */
-
 
 /**
  * Register the classes
@@ -26,7 +24,6 @@ ClassLoader::addClasses(array
 	// Models
 	'RwcardsModel'		=> 'system/modules/rwcards/models/RwcardsModel.php',
 ));
-
 
 /**
  * Register the templates

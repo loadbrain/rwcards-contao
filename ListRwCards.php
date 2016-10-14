@@ -39,7 +39,6 @@ if (!defined('TL_ROOT')) die('You cannot access this file directly!');
  */
 class ListRwCards extends Frontend
 {
-
 	/**
 	 * Add comments to a template
 	 * @param object
@@ -47,20 +46,15 @@ class ListRwCards extends Frontend
 	 * @param string
 	 * @param integer
 	 */
-	public function addCardsToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias){
-		#global $objPage;
-		$objPage = new stdClass();
-
+	public function addCardsToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias)
+    {
 		$limit = null;
 		$this->data = array();
 		$this->sessionId = (\Input::get('sessionId') != "" ) ? \Input::get('sessionId') : false;
 		$objPage = $this->Database->prepare('SELECT id, alias FROM tl_page WHERE id=?')->execute($intParent);
-		//$objPage = $this->Database->prepare('SELECT * FROM tl_page WHERE id=47')->execute()->fetchAllAssoc();
 		$this->nextPage = $objPage->fetchAssoc();
-//print_r($objPage); exit;
 		 
 		// Pagination
-
 		if ($objConfig->perPage > 0)
 		{
 			$page = \Input::get('page') ? \Input::get('page') : 1;
@@ -74,7 +68,6 @@ class ListRwCards extends Frontend
 			$objTemplate->pagination = $objPagination->generate("\n  ");
 		}
 
-
 		//Get all published categories
 		$resCats = $this->Database->prepare("SELECT tl_rwcards_category.* FROM tl_rwcards_category WHERE tl_rwcards_category.published = 1")->execute();
 		
@@ -82,35 +75,27 @@ class ListRwCards extends Frontend
 
 		// Get all Cards for each category to build a slideshow with them
 		$i = 0;
-		foreach ($this->categories as $val){
+		foreach ($this->categories as $val)
+		{
 			$obListRwCardsStmt = $this->Database->prepare("select tl_rwcards.*, tl_rwcards_category.id, tl_rwcards_category.category_kategorien_name, tl_rwcards_category.category_description, tl_files.path from " .
 			"tl_rwcards left join tl_rwcards_category on tl_rwcards_category.id = " . (int)$val['id'] . " left join tl_files on tl_files.uuid =  tl_rwcards.picture where (tl_rwcards.pid = " . (int)$val['id'] . " and tl_rwcards.published  = 1) " .
 			"order by tl_rwcards.id");
-			if ($limit){
+			if ($limit)
+			{
 				$obListRwCardsStmt->limit($limit, $offset);
 			}
 			//$obListRwCardsStmt;
 			$this->data[$i++] = $obListRwCardsStmt->execute()->fetchAllAssoc();
 		}
 
-
-		if (count($this->data) > 0){
-			$count = 0;//
-
-			if ($objConfig->template == '' or $objConfig->template == 'rwcardsReWriteCard')
-			{
-
-				$objConfig->template = 'rwcards_list';
-                                         //var_dump($objConfig->template); exit;
-			}
+		if (count($this->data) > 0 && ($objConfig->template == '' or $objConfig->template == 'rwcardsReWriteCard'))
+		{
+			$objConfig->template = 'rwcards_list';
 		}
 
-
-		
 		/**
 		 * set some vars
 		 */
-		//$GLOBALS['TL_JAVASCRIPT'][''] = $this->Environment->base . "system/modules/rwcards/assets/slideshow_rwcards/js/slideshow.js";
 		$GLOBALS['TL_CSS'][''] = \Environment::get('base') . "system/modules/rwcards/assets/slideshow_rwcards/css/slideshow.css";
 		$objTemplate->seeAllCards = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_listcards_see_all_cards'];
 		$objTemplate->noCategoriesPublished = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_listcards_no_category_published_or_created'];
@@ -124,8 +109,5 @@ class ListRwCards extends Frontend
 		$objTemplate->sessionId = $this->sessionId;
 		$objTemplate->nextPage = $this->nextPage;
 		$objTemplate->objPage = clone $objPage;
-		++$count;
 	}
 }
-
-?>
