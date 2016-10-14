@@ -123,7 +123,6 @@ class ListRwCards extends Frontend
 		$objTemplate->reWritetoSender = (\Input::get('view') == "reWritetoSender") ? 1 : 0;
 		$objTemplate->sessionId = $this->sessionId;
 		$objTemplate->nextPage = $this->nextPage;
-		$objTemplate->objPage = clone $objPage;
 		++$count;
 	}
 }

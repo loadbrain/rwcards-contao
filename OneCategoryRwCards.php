@@ -117,7 +117,6 @@ class OneCategoryRwCards extends \Frontend
 		}
 		
 		$objTemplate->nextPage = $this->nextPage;
-		$objTemplate->objPage = clone $objPage;
 //var_dump($objTemplate->data);
 	}
 
