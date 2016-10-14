@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Contao Open Source CMS
  * Copyright (C) 2011 Ralf Weber
@@ -38,11 +37,9 @@
  */
 class RwcardsModel extends \Model
 {
-
 	/**
 	 * Table name
 	 * @var string
 	 */
 	protected static $strTable = 'tl_rwcards';
-
 }

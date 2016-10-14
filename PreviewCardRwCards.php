@@ -39,7 +39,6 @@ if (!defined('TL_ROOT')) die('You cannot access this file directly!');
  */
 class PreviewCardRwCards extends Frontend
 {
-
 	/**
 	 * Add all cards of one category to a template
 	 * @param object
@@ -47,25 +46,22 @@ class PreviewCardRwCards extends Frontend
 	 * @param string
 	 * @param integer
 	 */
-	public function addToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias){
-		$objPage = new stdClass();
+	public function addToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias)
+    {
 		$objPage = $this->Database->prepare('SELECT id, alias FROM tl_page WHERE id=?')->execute($intParent);
 		$this->nextPage = $objPage->fetchAssoc();
 
 		$limit = null;
 
-		$data = array();
 		$this->sessionId = (\Input::get('sessionId') != "" ) ? \Input::get('sessionId') : false;
 		$this->category_id = (\Input::get('category_id') > 0 ) ? \Input::get('category_id') : false;
 		$this->card_id = (\Input::get('id') > 0 ) ? \Input::get('id') : false;
 		$this->import("Session");
 
-
-			if ($objConfig->template == '')
-			{
-				$objTemplate->template = 'rwcards_preview';
-			}
-
+		if ($objConfig->template == '')
+		{
+			$objTemplate->template = 'rwcards_preview';
+		}
 
 		/**
 		 * set some vars
@@ -145,13 +141,11 @@ class PreviewCardRwCards extends Frontend
 		$doNotSubmit = false;
 		$arrWidgets = array();
 
-
 		$objTemplate->hasError = $doNotSubmit;
 
 		// Initialize widgets
 		foreach ($arrFields as $arrField)
 		{
-
 			$strClass = $GLOBALS['TL_FFL'][$arrField['inputType']];
 
 			// Continue if the class is not defined
@@ -176,20 +170,21 @@ class PreviewCardRwCards extends Frontend
 
 			$arrWidgets[$arrField['name']] = $objWidget;
 		}
+
 		$objTemplate->fields  = $arrWidgets;
 
 		if ($this->Input->post('FORM_SUBMIT') == $objTemplate->formId && !$doNotSubmit)
 		{
 			// Preview button clicked
-			if($this->Input->post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_preview_card'] ){
+			if($this->Input->post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_preview_card'] )
+			{
 				$this->redirect(\Controller::generateFrontendUrl($objPage->row()) . '?view=rwcardspreview&id=' . $this->data[0]['id'] .'&category_id=' . $this->category_id . '&reWritetoSender=' . $objTemplate->reWritetoSender . '&sessionId=' . @$this->sessionId);
 			}
 			// Sending button clicked
-			if($this->Input->post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_send_card'] ){
+			if($this->Input->post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_send_card'] )
+			{
 				$this->redirect(\Controller::generateFrontendUrl($objPage->row()) . '?view=rwcardssendcard&id=' . $this->data[0]['id'] .'&category_id=' . $this->category_id . '&reWritetoSender=' . $objTemplate->reWritetoSender . '&sessionId=' . @$this->sessionId);
 			}
 		}
 	}
 }
-
-?>

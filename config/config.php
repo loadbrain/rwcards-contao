@@ -28,31 +28,27 @@
  * @filesource
  */
 
-
 // Back end module
-array_insert($GLOBALS['BE_MOD']['content'], 3, array
-(
-  'RWCards' => array
-  (
-    'tables' => array('tl_rwcards_category', 'tl_rwcards'),
-    'icon'   => 'system/modules/rwcards/assets/rwcards_icon.jpg'
-  ),
-  'RWCardsSentCards' => array(
-    'tables' => array('tl_rwcardsdata'),
-	'icon'   => 'system/modules/rwcards/assets/icon.gif'
-  )
-  ));
+array_insert($GLOBALS['BE_MOD']['content'],
+             3,
+             array(
+                 'RWCards'          => array(
+                     'tables' => array( 'tl_rwcards_category', 'tl_rwcards' ),
+                     'icon'   => 'system/modules/rwcards/assets/rwcards_icon.jpg'
+                 ),
+                 'RWCardsSentCards' => array(
+                     'tables' => array( 'tl_rwcardsdata' ),
+                     'icon'   => 'system/modules/rwcards/assets/icon.gif'
+                 )
+             )
+);
 
 // Front end module
-array_insert($GLOBALS['FE_MOD']['miscellaneous'], 0, array
-(
-  'RWCards' => 'ModuleRwCards'
-));
+array_insert($GLOBALS['FE_MOD']['miscellaneous'],
+             0,
+             array(
+                 'RWCards' => 'ModuleRwCards'
+             )
+);
 
-
-#$GLOBALS['TL_HOOKS']['generateFrontendUrl'][] = array('MyClass', 'myGenerateFrontendUrl');
-$GLOBALS['TL_CRON']['weekly'][] = array('MyClass', 'deleteOldCards');
-
-
-
-?>
+$GLOBALS['TL_CRON']['weekly'][] = array( 'MyClass', 'deleteOldCards' );

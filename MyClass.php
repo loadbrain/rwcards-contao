@@ -1,4 +1,5 @@
-<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
+<?php
+if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * Contao Open Source CMS
@@ -29,12 +30,14 @@
  */
 class MyClass extends Frontend {
 
-	public function myGenerateFrontendUrl($arrRow, $strParams, $strUrl){
+	public function myGenerateFrontendUrl($arrRow, $strParams, $strUrl)
+    {
 		#return ($strUrl);
 		#return str_replace('.html', '', $strUrl);
 	}
 
-	public function deleteOldCards(){
+	public function deleteOldCards()
+    {
 		$lifetimeDate = date("Y-m-d", mktime(0, 0, 0, date("m")  , date("d")-$_SESSION['rwcards']['config']['rwcards_keep_cards'], date("Y")));
 
 		$res = $this->Database->prepare("select writtenOn FROM tl_rwcardsdata")->execute();
@@ -50,7 +53,8 @@ class MyClass extends Frontend {
 		}
 	}
 
-	public function myGetImage($image, $width, $height, $mode, $strCacheName, $objFile){//print_r($objFile);
+	public function myGetImage($image, $width, $height, $mode, $strCacheName, $objFile)
+    {
 		if (!strlen($image))
 		{
 			return null;
@@ -246,8 +250,6 @@ class MyClass extends Frontend {
 		}
 
 		// Return the path to new image
-		//return $strCacheName;
 		return $strCacheName;
 	}
 }
-?>

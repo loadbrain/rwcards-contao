@@ -47,39 +47,31 @@ class FillOutCardRwCards extends Frontend
 	 * @param string
 	 * @param integer
 	 */
-	public function addToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias){
-	//global $objPage;
+	public function addToTemplate($objTemplate, $objConfig, $strSource, $intParent, $alias)
+    {
 		$this->import("Session");
 		$objPage = new stdClass();
 		$objPage = $this->Database->prepare('SELECT id, alias FROM tl_page WHERE id=?')->execute($intParent);
 		$this->nextPage = $objPage->fetchAssoc();
 		
 		$limit = null;
-		$data = array();
 		$this->sessionId = (\Input::get('sessionId') != "" ) ? \Input::get('sessionId') : false;
 		$this->category_id = (\Input::get('category_id') > 0 ) ? \Input::get('category_id') : false;
 		$this->card_id = (\Input::get('id') > 0 ) ? \Input::get('id') : false;
 
 		// New Card or someone answers
-		if ( $this->sessionId != ""){
-			//echo "select tl_rwcardsdata.*, tl_rwcards.* from tl_rwcardsdata, tl_rwcards where tl_rwcards.id = '" . $this->card_id . "' and tl_rwcardsdata.sessionId = '" . $this->sessionId ."'";
+		if ( $this->sessionId != "")
+		{
 			$resCats = $this->Database->prepare("select tl_rwcardsdata.*, tl_rwcards.*, tl_files.path from tl_rwcardsdata, tl_rwcards left join tl_files on tl_files.uuid =  tl_rwcards.picture where tl_rwcards.id = '" . $this->card_id . "' and tl_rwcardsdata.sessionId = '" . $this->sessionId ."'");
 			$this->data = $resCats->execute()->fetchAllAssoc();
-		}
-		else{
+		} else {
 			$resCats = $this->Database->prepare("select tl_rwcards.*, tl_files.path from tl_rwcards left join tl_files on tl_files.uuid =  tl_rwcards.picture where tl_rwcards.id = '" . $this->card_id . "'"); 
 			$this->data = $resCats->execute()->fetchAllAssoc();
 		}
 
-
-
-		if (count($this->data) > 0){
-			$count = 0;
-
-			if ($objConfig->template == '')
-			{
-				$objTemplate->template = 'rwcards_filloutcard';
-			}
+		if (count($this->data) > 0 && $objConfig->template == '')
+		{
+		    $objTemplate->template = 'rwcards_filloutcard';
 		}
 
 		/**
@@ -88,8 +80,6 @@ class FillOutCardRwCards extends Frontend
 		$GLOBALS['TL_CSS'][''] = \Environment::get('base') . "system/modules/rwcards/assets/css/rwcards.filloutform.css";
 		$objTemplate->data = $this->data;
 		$objTemplate->rwcards_fillout_cards_please_fill_out = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_please_fill_out'] ;
-
-
 		$objTemplate->rwcards_fillout_cards_name_to = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_name_to'];
 		$objTemplate->rwcards_fillout_cards_email_to = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_email_to'];
 		$objTemplate->rwcards_fillout_cards_add_receiver = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_add_receiver'];
@@ -160,10 +150,9 @@ class FillOutCardRwCards extends Frontend
 				'eval' => array('mandatory'=>true)
 			)
 		);
-;
+
 		$doNotSubmit = false;
 		$arrWidgets = array();
-
 
 		$objTemplate->hasError = $doNotSubmit;
 
@@ -193,31 +182,27 @@ class FillOutCardRwCards extends Frontend
 			}
 
 			$arrWidgets[$arrField['name']] = $objWidget;
-
-//			$this->import("Session");
-//
-//			$this->Session->set($arrField['name'], $this->Input->post($arrField['name']));
-
 		}
+
 		$objTemplate->fields  = $arrWidgets;
 
 		if (\Input::post('FORM_SUBMIT') == $objTemplate->formId && !$doNotSubmit)
 		{
-
-			foreach ( $_POST as $key=>$value ) {
-			$this->Session->set($key, \Input::post(($key)));
+			foreach ( $_POST as $key=>$value )
+			{
+			    $this->Session->set($key, \Input::post(($key)));
 			}
 
 			// Preview button clicked
-			if(\Input::post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_preview_card'] ){
+			if(\Input::post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_preview_card'] )
+			{
 				$this->redirect(\Controller::generateFrontendUrl($objPage->row()) . '?view=rwcardspreview&id=' . $this->data[0]['id'] .'&category_id=' . $this->category_id . '&reWritetoSender=' . $objTemplate->reWritetoSender . '&sessionId=' . @$this->sessionId);
 			}
 			// Sending button clicked
-			if(\Input::post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_send_card'] ){
+			if(\Input::post('submit') == $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_send_card'] )
+			{
 				$this->redirect(\Controller::generateFrontendUrl($objPage->row()) . '?view=rwcardssendcard&id=' . $this->data[0]['id'] .'&category_id=' . $this->category_id);
 			}
 		}
 	}
 }
-
-?>
