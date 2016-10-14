@@ -126,5 +126,3 @@ class ListRwCards extends Frontend
 		++$count;
 	}
 }
-
-?>

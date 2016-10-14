@@ -218,5 +218,3 @@ class FillOutCardRwCards extends Frontend
 		}
 	}
 }
-
-?>

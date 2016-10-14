@@ -190,5 +190,3 @@ class PreviewCardRwCards extends Frontend
 		}
 	}
 }
-
-?>

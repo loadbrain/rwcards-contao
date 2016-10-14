@@ -144,5 +144,3 @@ class OneCategoryRwCards extends \Frontend
 		return $resCats->execute()->fetchAllAssoc();
 	}
 }
-
-?>

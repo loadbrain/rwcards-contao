@@ -269,5 +269,3 @@ class SendCardRwCards extends Frontend {
 	}
 
 }
-
-?>
