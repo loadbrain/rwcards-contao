@@ -85,7 +85,6 @@ class PreviewCardRwCards extends Frontend
 		$objTemplate->action = ampersand($this->Environment->request);
 		$objTemplate->card_id = $this->card_id;
 		$objTemplate->nextPage = $this->nextPage;
-		$objTemplate->objPage = clone $objPage;
 
 		// Form fields
 		$arrFields = array

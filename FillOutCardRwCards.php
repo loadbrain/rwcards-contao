@@ -97,7 +97,6 @@ class FillOutCardRwCards extends Frontend
 		$objTemplate->formId = 'rwcards_fillout_form';
 		$objTemplate->action = ampersand($this->Environment->request);
 		$objTemplate->nextPage = $this->nextPage;
-		$objTemplate->objPage = clone $objPage;
 
 		// Form fields
 		$arrFields = array

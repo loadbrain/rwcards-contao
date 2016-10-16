@@ -104,7 +104,6 @@ class SendCardRwCards extends Frontend
 		$objTemplate->sessionId = (\Input::get('view') == "rwcardsReWriteCard") ? \Input::get('sessionId') : null;
 		$objTemplate->alias = $alias;
 		$objTemplate->nextPage = $this->nextPage;
-		$objTemplate->objPage = clone $objPage;
 
 		if (\Input::get('view') == "rwcardsReWriteCard")
 		{

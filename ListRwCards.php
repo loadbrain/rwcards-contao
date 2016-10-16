@@ -109,5 +109,6 @@ class ListRwCards extends Frontend
 		$objTemplate->sessionId = $this->sessionId;
 		$objTemplate->nextPage = $this->nextPage;
 		$objTemplate->objPage = clone $objPage;
+		++$count;
 	}
 }
