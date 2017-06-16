@@ -33,7 +33,7 @@
  */
 $GLOBALS['TL_LANG']['tl_rwcardsdata']['nameTo']    = array( 'Receiver', 'Receiver' );
 $GLOBALS['TL_LANG']['tl_rwcardsdata']['emailTo']   = array( 'E-Mail address of receiver', 'E-Mail address of receiver' );
-$GLOBALS['TL_LANG']['tl_rwcardsdata']['nameFrom']  = array( 'Receiver', 'Receiver' );
+$GLOBALS['TL_LANG']['tl_rwcardsdata']['nameFrom'] = array( 'Sender', 'Sender');
 $GLOBALS['TL_LANG']['tl_rwcardsdata']['emailFrom'] = array( 'E-Mail address of sender', 'E-Mail address of sender' );
 $GLOBALS['TL_LANG']['tl_rwcardsdata']['picture']   = array( 'Picture', 'Picture' );
 $GLOBALS['TL_LANG']['tl_rwcardsdata']['message']   = array( 'Message', 'Message' );

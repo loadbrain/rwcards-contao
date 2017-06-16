@@ -43,7 +43,7 @@ else {
 				<br />
 				<span class="rw_from_name"><?php echo ( $this->Session->get('rwNameFrom') != "") ? $this->Session->get('rwNameFrom') : $this->data[0]['nameFrom']; ?></span>
 				<br />
-				<span class="rw_from_email"><?php echo ($this->Session->get('rwEmailFrom') != "") ? $this->Session->get('rwEmailFrom') : $this->data[0]['rwEmailFrom']; ?></span>
+				<span class="rw_from_email"><?php echo ($this->Session->get('emailFrom') != "") ? $this->Session->get('emailFrom') : $this->data[0]['emailFrom']; ?></span>
 			</p>
 			<p class="rw_message">
 				<span class="rw_label"><?php echo $this->rwcards_sendcard_message;?></span>
@@ -140,7 +140,7 @@ window.addEvent('domready', function()
     var setDisplayOfCard = function(myElement, styleProperty){
         $(myElement).setStyle('display', ''+ styleProperty +'');
     };
-    
+
 	$('frontCard').setStyle('display', 'inline');
 
 	// Click on ShowFrontCard

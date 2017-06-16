@@ -61,7 +61,7 @@ class SendCardRwCards extends Frontend
     {
 		$objPage = $this->Database->prepare('SELECT id, alias FROM tl_page WHERE id=?')->execute($intParent);
 		$this->nextPage = $objPage->fetchAssoc();
-		
+
 		$this->import("Session");
 		$this->sessionData = $this->Session->getData();
 
@@ -254,8 +254,8 @@ class SendCardRwCards extends Frontend
 			$objEmail = new Email();
 			$objEmail->subject =  $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_subject'];
 			$message = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] . " "
-			. $this->data[0]['nameTo'] . ",\n\n"
-			. $this->data[0]['nameFrom'] . " <" . $this->data[0]['emailFrom'] . "> "
+      . $this->data[0]['nameFrom'] . ",\n\n"
+      . $this->data[0]['nameTo'] . " <" . $this->data[0]['emailTo'] . "> "
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_1'] . " "
 			. date("d.m.Y") . " "
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_2'] . "\n\n"
