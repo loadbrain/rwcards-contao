@@ -105,7 +105,7 @@ class FillOutCardRwCards extends Frontend
 			(
 				'name' => 'rwNameFrom',
 				'label' => $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_name_from'],
-				'value' => ' ' . ($objTemplate->sessionId != "") ? trim($this->Session->get('rwNameFrom')) : trim($this->data[0]['nameTo']),
+				'value' => ($this->Session->get('rwNameFrom') != "") ? trim($this->Session->get('rwNameFrom')) : trim($this->data[0]['nameTo']),
 				'inputType' => 'text',
 				'eval' => array('mandatory'=>true, 'maxlength'=>64)
 			),
@@ -113,7 +113,7 @@ class FillOutCardRwCards extends Frontend
 			(
 				'name' => 'rwEmailFrom',
 				'label' => $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_email_from'],
-				'value' => ' ' . ($objTemplate->sessionId != "") ? trim($this->Session->get('rwEmailFrom')) : trim($this->data[0]['emailTo']),
+				'value' => ($this->Session->get('rwEmailFrom') != "") ? trim($this->Session->get('rwEmailFrom')) : trim($this->data[0]['emailTo']),
 				'inputType' => 'text',
 				'eval' => array('rgxp'=>'email', 'mandatory'=>true, 'maxlength'=>128, 'decodeEntities'=>true)
 			),
@@ -138,7 +138,7 @@ class FillOutCardRwCards extends Frontend
 			(
 				'name' => 'rwCardsFormEmailTo',
 				'label' => $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_email_to'],
-				'value' => ' ' . ($objTemplate->sessionId != "") ? $this->Session->get('rwCardsFormEmailTo'): trim($this->data[0]['emailFrom']),
+				'value' => ($this->Session->get('rwCardsFormEmailTo') != "") ? $this->Session->get('rwCardsFormEmailTo'): trim($this->data[0]['emailFrom']),
 				'inputType' => 'text',
 				'eval' => array('rgxp'=>'email', 'mandatory'=>true, 'maxlength'=>128, 'decodeEntities'=>true)
 			),
