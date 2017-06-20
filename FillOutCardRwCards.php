@@ -130,7 +130,7 @@ class FillOutCardRwCards extends Frontend
 			(
 				'name' => 'rwcardsReceiver',
 				'label' => $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_fillout_cards_name_to'],
-				'value' => ' ' . ($objTemplate->sessionId != "") ? trim($this->Session->get('rwcardsReceiver')): trim($this->data[0]['nameFrom']),
+				'value' => ($this->Session->get('rwcardsReceiver') != "") ? trim($this->Session->get('rwcardsReceiver')): trim($this->data[0]['nameFrom']),
 				'inputType' => 'text',
 				'eval' => array('mandatory'=>true, 'maxlength'=>64)
 			),
