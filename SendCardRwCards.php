@@ -164,7 +164,7 @@ class SendCardRwCards extends Frontend
 	public function sendEcardPerMail($objTemplate)
     {
 	    global $objPage;
-		$this->import("String");
+		$this->import("StringUtil");
 		$objEmail = new \Email();
 
 		for ($i = 0; $i < count($this->lastId); $i++)
@@ -193,7 +193,7 @@ class SendCardRwCards extends Frontend
                 $receiver = ($i > 0 ) ? trim($this->Session->get('rwcardsReceiver' . $i))  : trim($this->Session->get('rwcardsReceiver'));
                 $link     = trim($this->linkToRWCards[$i]);
 
-                $text = \String::parseSimpleTokens($text,array('sender'    =>  $sender,
+                $text = \StringUtil::parseSimpleTokens($text,array('sender'    =>  $sender,
                                                                'receiver'  =>  $receiver,
                                                                 'link'     => $link));
 
@@ -219,7 +219,7 @@ class SendCardRwCards extends Frontend
 			$objEmail->subject = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_subject'] . $this->Session->get('rwNameFrom');
 
             $message[$i] = strip_tags($message[$i]);
-            $message[$i] = $this->String->decodeEntities($message[$i]);
+            $message[$i] = $this->StringUtil->decodeEntities($message[$i]);
        		$message[$i] = str_replace(array('&', '<', '>'), array('&', '<', '>'), $message[$i]);
        		$objEmail->text = sprintf($message[$i]);
 
@@ -254,8 +254,8 @@ class SendCardRwCards extends Frontend
 			$objEmail = new Email();
 			$objEmail->subject =  $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_subject'];
 			$message = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_greeting'] . " "
-      . $this->data[0]['nameFrom'] . ",\n\n"
-      . $this->data[0]['nameTo'] . " <" . $this->data[0]['emailTo'] . "> "
+			. $this->data[0]['nameTo'] . ",\n\n"
+			. $this->data[0]['nameFrom'] . " <" . $this->data[0]['emailFrom'] . "> "
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_1'] . " "
 			. date("d.m.Y") . " "
 			. $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_sendcard_read_msg_2'] . "\n\n"
