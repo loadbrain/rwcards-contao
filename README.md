@@ -13,6 +13,6 @@ website that is easy to maintain. Visit the project website for more information
 
 ### Install
 * Copy folder rwcards-contao4 to /system/modules
-* Rename folder to rwCards
+* Rename folder to rwcards
 * Upgrade Database
 * You're done :-)
