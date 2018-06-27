@@ -9,18 +9,17 @@ if ( count($this->data[0]) > 0)
 {
 ?>
 <div id="card-heading">
-	<h1><?php echo $this->rwcards_one_category_listcards_click_on_card_to_preview; ?></h1>
+	<h3><?php echo $this->rwcards_one_category_listcards_click_on_card_to_preview; ?></h3>
 </div>
 
 <div id="card-list">
 
 <?php
 $k="";
-$styleClear = "width:" . (90 / $this->cardsPerLine) . "%;";	
 for ($i=0, $n=count( $this->data ); $i < $n; $i++){
 $imgDim = deserialize($this->data[$i]['size']);
 ?>
-<div class="card" style="<?php echo $styleClear; ?>">
+<div class="card">
 	<?php
 	       $cardId = ($this->rewriteCardId != "") ? $this->rewriteCardId : $this->data[$i]['id'];
 	?>
@@ -39,7 +38,7 @@ $imgDim = deserialize($this->data[$i]['size']);
 	</span>
 </div>
 <?php
-	#$styleClear = ($k % $this->cardsPerLine == 0) ? "clear:none;" : "clear:both;";	
+	#$styleClear = ($k % $this->cardsPerLine == 0) ? "clear:none;" : "clear:both;";
 	$k++;
 }
 ?>

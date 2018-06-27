@@ -26,4 +26,4 @@
 div.validation-advice{color: red; font-weight: bold; margin: 5px 0; padding: 5px; width: auto;}
 .rwCardsErrorCaptchaError{color: red;font-size: 12px;font-weight: bold;}
 p.error{color: red;font-weight: bold;}
-.rwcardsImage img {-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9); -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9);	box-shadow: 0 1px 5px rgba(0,0,0,0.9);}
+.rwcardsImage img {-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.9); -webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.9);	box-shadow: 0 1px 5px rgba(0,0,0,0.9); width: 100%;}
