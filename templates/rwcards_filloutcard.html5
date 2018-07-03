@@ -35,6 +35,9 @@ if ( count($this->data[0]) > 0)
 		</div>
 
 	</div>
+  <div class="rwcardsBorder">
+
+  </div>
     <div class="rwcardsRightForm">
 		<?php
 		if ( isset($sess['rwCardsFormEmailTo']) )
@@ -79,7 +82,6 @@ if ( count($this->data[0]) > 0)
 		}
 		?>
     </div>
-	<div class="rwcardsClr"></div>
 	<div class="rwcards_buttons_bottom">
 		<input type="button" id="rwCardsBack" value="<?php echo $this->rwcards_fillout_cards_back;?>" class="button rwcards_button" />
 		<input type="submit" name="submit" id="rwCardsPreviewCard" value="<?php echo $this->rwcards_fillout_cards_preview_card; ?>" class="rwcards_button" />
