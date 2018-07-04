@@ -31,7 +31,7 @@ if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 
 /**
- * Class ListRwCards 
+ * Class ListRwCards
  *
  * @copyright  LoadBrain 2011
  * @author     Ralf Weber <http://www.loadbrain.de>
@@ -53,7 +53,7 @@ class ListRwCards extends Frontend
 		$this->sessionId = (\Input::get('sessionId') != "" ) ? \Input::get('sessionId') : false;
 		$objPage = $this->Database->prepare('SELECT id, alias FROM tl_page WHERE id=?')->execute($intParent);
 		$this->nextPage = $objPage->fetchAssoc();
-		 
+
 		// Pagination
 		if ($objConfig->perPage > 0)
 		{
@@ -70,7 +70,7 @@ class ListRwCards extends Frontend
 
 		//Get all published categories
 		$resCats = $this->Database->prepare("SELECT tl_rwcards_category.* FROM tl_rwcards_category WHERE tl_rwcards_category.published = 1")->execute();
-		
+
 		$this->categories = $resCats->fetchAllAssoc();
 
 		// Get all Cards for each category to build a slideshow with them
@@ -96,7 +96,8 @@ class ListRwCards extends Frontend
 		/**
 		 * set some vars
 		 */
-		$GLOBALS['TL_CSS'][''] = \Environment::get('base') . "system/modules/rwcards/assets/slideshow_rwcards/css/slideshow.css";
+		$GLOBALS['TL_CSS']['0'] = \Environment::get('base') . "system/modules/rwcards/assets/slideshow_rwcards/css/slideshow.css";
+    $GLOBALS['TL_CSS']['1'] = \Environment::get('base') . "system/modules/rwcards/assets/css/rwcards.listcards.css";
 		$objTemplate->seeAllCards = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_listcards_see_all_cards'];
 		$objTemplate->noCategoriesPublished = $GLOBALS['TL_LANG']['tl_rwcards']['rwcards_listcards_no_category_published_or_created'];
 		$objTemplate->data = $this->data;

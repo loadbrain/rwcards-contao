@@ -1,29 +1,22 @@
 {
-  "name": "vendor/rwcards",
-  "type": "contao-module",
-  "description": "RWCards, ecards extension for Contao Open Source CMS",
-  "keywords": ["contao", "rwcards", "ecards"],
-  "license": "CC BY-NC-SA 4.0",
-  "authors": [{
-    "name": "Ralf Weber",
-    "homepage": "https://loadbrain.weberr.de"
-  }],
-  "require": {
-    "php": "~5.4 || ~7.0",
-    "contao/core-bundle": "~3.5 || 4.*",
-    "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
-  },
-  "extra": {
-    "contao": {
-      "sources": {
-        "": "system/modules/rwcards"
-      },
-      "runonce": [
-        "config/config.php"
-      ]
+    "name": "vendor/rwcards",
+    "type": "contao-module",
+    "license": "CC BY-NC-SA 4.0",
+    "require": {
+        "contao/core-bundle": "~3.5 || 4.*",
+        "contao-community-alliance/composer-plugin": "~2.4 || ~3.0"
+    },
+    "extra": {
+        "contao": {
+            "sources": {
+                "": "system/modules/rwcards"
+            },
+            "runonce": [
+                "config/config.php"
+            ]
+        }
+    },
+    "replace": {
+        "contao-legacy/rwcards": "self.version"
     }
-  },
-  "replace": {
-    "contao-legacy/rwcards": "self.version"
-  }
 }

@@ -1,0 +1,13 @@
+.rwcards-link {
+  align-self: end;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+div.rwcards-category {
+  font-weight: bold;
+  text-decoration: underline;
+  align-self: self-start;
+}
+.rwcards-category-description {
+    align-self: stretch;
+}
