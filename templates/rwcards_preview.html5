@@ -9,7 +9,7 @@
 
 
 
-<div id="rwcardsViewWrapper" style="height:auto; text-align:center;">
+<div id="rwcardsViewWrapper" class="rwcardsViewWrapper">
 	<div id="frontCard" style="display:block;">
 		<img src='<?php echo $this->Session->get('picture'); ?>'
 			alt='<?php echo  $this->Session->get('picture'); ?>'
@@ -35,6 +35,7 @@
 					<span class="rw_text"><?php echo nl2br(   $this->Session->get('rwMessage') ); ?></span>
 				</p>
 			</div>
+      <div class="rwcardsBorder"></div>
 			<div class="rwcardsRightForm">
 				<p class="rw_postmark"><img src='<?php echo $this->Environment->base; ?>system/modules/rwcards/assets/images/postmark.gif' /><img src='<?php echo $this->Environment->base; ?>system/modules/rwcards/assets/images/stamp.jpg' /></p>
 				<p class="rw_to">
@@ -74,11 +75,13 @@
 </div>
 
 <div class="rwcards_buttons_bottom" id="rwcards_buttons_bottom">
+<div class="rwcards_buttons">
 <form method="post" onSubmit="javascript:return false;">
 	<input type="submit" name="submit" id="rwcardsGoBack" value="<?php echo $this->rwcards_preview_cards_back; ?>" class="rwcards_button" />
 	<input type="submit" name="submit" id="rwcardsSend" value="<?php echo $this->rwcards_preview_cards_send_card;?>" class="rwcards_button" />
 	<input type="hidden" name="sessionCode" id="sessionCode" value="<?php echo $this->sessionId; ?>" />
 </form>
+</div>
 </div>
 
 <script type="text/javascript">//<![CDATA[
@@ -97,7 +100,7 @@ window.addEvent('domready', function()
     var setDisplayOfCard = function(myElement, styleProperty){
         $(myElement).setStyle('display', ''+ styleProperty +'');
     };
-    
+
 	$('frontCard').setStyle('display', 'inline');
 
 	// Click on ShowFrontCard

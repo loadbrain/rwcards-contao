@@ -52,6 +52,7 @@ else {
 			</p>
 
 		</div>
+    <div class="rwcardsBorder"></div>
 		<div class="rwcardsRightForm">
 			<p class="rw_postmark"><img src='<?php echo \Environment::get('base'); ?>system/modules/rwcards/assets/images/postmark.gif' /><img src='<?php echo \Environment::get('base'); ?>system/modules/rwcards/assets/images/stamp.jpg' /></p>
 			<p class="rw_to">
