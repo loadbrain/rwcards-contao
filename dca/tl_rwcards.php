@@ -73,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_rwcards'] = array(
             'sql' => "int(10) unsigned NOT NULL auto_increment"
         ),
         'pid'         => array(
-            'sql' => "tinyint(1) default '0' NOT NULL"
+            'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
         'tstamp'      => array(
             'sql' => "int(10) unsigned NOT NULL default '0'"

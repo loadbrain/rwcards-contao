@@ -119,14 +119,14 @@ $GLOBALS['TL_DCA']['tl_rwcardsdata'] = array(
             'label'   => &$GLOBALS['TL_LANG']['tl_rwcardsdata']['cardSent'],
             'search'  => true,
             'sorting' => true,
-            'sql' => "SET('0','1') NOT NULL"
+            'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
         'cardRead'  => array(
             'label'         => &$GLOBALS['TL_LANG']['tl_rwcardsdata']['cardRead'],
             'search'        => true,
             'sorting'       => true,
             'load_callback' => array( array( 'tl_rwcardsdata', 'cardRead' ) ),
-            'sql' => "SET('0','1') NOT NULL"
+            'sql' => "int(10) unsigned NOT NULL default '0'"
         )
     )
 );
