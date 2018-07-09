@@ -60,7 +60,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_cards_per_row'] = array(
     'inputType' => 'text',
     'eval'      => array( 'mandatory' => true, ),
     'default'   => 3,
-    'sql'       => "tinyint(3) unsigned NOT NULL default '3'"
+    'sql'       => "int(10) unsigned NOT NULL default '3'"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_rows_per_page'] = array(
@@ -68,7 +68,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_rows_per_page'] = array(
     'inputType' => 'text',
     'eval'      => array( 'mandatory' => true, ),
     'default'   => 3,
-    'sql'       => "tinyint(3) unsigned NOT NULL default '3'"
+    'sql'       => "int(10) unsigned NOT NULL default '3'"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_keep_cards'] = array(
@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_keep_cards'] = array(
     'inputType' => 'text',
     'eval'      => array( 'mandatory' => true, ),
     'default'   => 7,
-    'sql'       => "tinyint(3) unsigned NOT NULL default '7'"
+    'sql'       => "int(10) unsigned NOT NULL default '7'"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['rwcards_thumb_box_width'] = array(
