@@ -1,3 +1,8 @@
+Am 31. Mai 2019 ist der LTS-Zeitraum von Contao 3.5 abgelaufen, daher wird diese Version nicht mehr weiter gepflegt.
+==============================================================
+Bitte auf Contao 4 umsteigen und diese RWCards Version nutzen
+https://github.com/loadbrain/rwcards-contao4
+
 rwcards-contao
 ==============
 
